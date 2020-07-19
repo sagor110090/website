@@ -1,18 +1,9 @@
 <?php
 include "db_conn.php";
 
-$title = $_POST['title'];
-$email = $_POST['email'];
-$tags = $_POST['tags'];
-$type = $_POST['type'];
-$experience = $_POST['experience'];
-$minimum_salary = $_POST['minimum_salary'];
-$maximum_salary = $_POST['maximum_salary'];
-$region = $_POST['region'];
-$location = $_POST['location'];
-$upload_file = $_POST['upload_file'];
+$headline = $_POST['headline'];
 
-if (empty($title)) {
+if (empty($headline)) {
     header("Location: company-post-jobs.php?error=title is required");
     exit();
 } elseif (empty($email)) {
