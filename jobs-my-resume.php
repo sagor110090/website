@@ -1,3 +1,60 @@
+<?php
+include "db_conn.php";
+if (isset($_POST['skill'])) {
+    $skils = $_POST['skils'];
+    // die($skils);
+    $sql = "INSERT INTO resumes (skills) VALUES ('$skils');";
+    $result = mysqli_query($conn, $sql);
+}
+if (isset($_POST['social_profile'])) {
+    $social_profile_name = $_POST['social_profile_name'];
+    $social_description = $_POST['social_description'];
+    $social_url = $_POST['social_url'];
+    // die($social_profile_name);
+
+    $sql = "UPDATE `test_db`.`resumes` SET `social_profile_name`='$social_profile_name', `social_description`='$social_description', `social_url`='$social_url' WHERE  `id`=1;";
+
+    $result = mysqli_query($conn, $sql);
+    // die('hello');
+}
+if (isset($_POST['social_profile'])) {
+    $social_profile_name = $_POST['social_profile_name'];
+    $social_description = $_POST['social_description'];
+    $social_url = $_POST['social_url'];
+    // die($social_profile_name);
+
+    $sql = "UPDATE `test_db`.`resumes` SET `social_profile_name`='$social_profile_name', `social_description`='$social_description', `social_url`='$social_url' WHERE  `id`=1;";
+
+    $result = mysqli_query($conn, $sql);
+    // die('hello');
+}
+if (isset($_POST['work'])) {
+    $work_title = $_POST['work_title'];
+    $work_url = $_POST['work_url'];
+    $currently_status = $_POST['currently_status'];
+    $work_description = $_POST['work_description'];
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+    // die($social_profile_name);
+
+    // $sql = "UPDATE `test_db`.`resumes` SET `social_profile_name`='$social_profile_name', `social_description`='$social_description', `social_url`='$social_url' WHERE  `id`=1;";
+    $sql = "UPDATE `test_db`.`resumes` SET `work_title`='$work_title', `work_url`='$work_url',  `currently_status`='$currently_status', `work_description`='$work_description', `start_date`='$start_date', `end_date`='$end_date' WHERE  `id`=1;";
+    $result = mysqli_query($conn, $sql);
+    // die('hello');
+}
+if (isset($_POST['paper'])) {
+    $paper_title = $_POST['paper_title'];
+    $paper_url = $_POST['paper_url'];
+    $paper_publish_date = $_POST['paper_publish_date'];
+    $paper_description = $_POST['paper_description'];
+    // die($social_profile_name);
+
+    // $sql = "UPDATE `test_db`.`resumes` SET `social_profile_name`='$social_profile_name', `social_description`='$social_description', `social_url`='$social_url' WHERE  `id`=1;";
+    $sql = "UPDATE `test_db`.`resumes` SET `paper_title`='$paper_title', `paper_url`='$paper_url', `paper_publish_date`='$paper_publish_date', `paper_description`='$paper_description' WHERE  `id`=1;";
+    $result = mysqli_query($conn, $sql);
+    // die('hello');
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -32,6 +89,8 @@
     <link rel="stylesheet" type="text/css" href="css/plugins.css">
     <link rel="stylesheet" type="text/css" href="css/style1.css">
     <link rel="stylesheet" type="text/css" href="css/templete.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <body>
@@ -474,20 +533,10 @@
                             <div class="sticky-top bg-white">
                                 <div class="candidate-info onepage">
                                     <ul>
-                                        <li><a class="scroll-bar nav-link" href="#resume_headline_bx">
-                                                <span>Resume Headline</span></a></li>
                                         <li><a class="scroll-bar nav-link" href="#key_skills_bx">
                                                 <span>Key Skills</span></a></li>
-                                        <li><a class="scroll-bar nav-link" href="#employment_bx">
-                                                <span>Employment</span></a></li>
-                                        <li><a class="scroll-bar nav-link" href="#education_bx">
-                                                <span>Education</span></a></li>
-                                        <li><a class="scroll-bar nav-link" href="#it_skills_bx">
-                                                <span>IT Skills</span></a></li>
-                                        <li><a class="scroll-bar nav-link" href="#projects_bx">
-                                                <span>Projects</span></a></li>
-                                        <li><a class="scroll-bar nav-link" href="#profile_summary_bx">
-                                                <span>Profile Summary</span></a></li>
+
+
                                         <li><a class="scroll-bar nav-link" href="#accomplishments_bx">
                                                 <span>Accomplishments</span></a></li>
                                         <li><a class="scroll-bar nav-link" href="#desired_career_profile_bx">
@@ -501,61 +550,16 @@
                             </div>
                         </div>
                         <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
-                            <div id="resume_headline_bx" class="job-bx bg-white m-b30">
-                                <?php if (isset($_GET['error'])) {?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?php echo $_GET['error']; ?>
-                                </div>
-                                <?php }?>
-                                <?php if (isset($_GET['success'])) {?>
-                                <div class="alert alert-success" role="alert">
-                                    <?php echo $_GET['success']; ?>
-                                </div>
-                                <?php }?>
-                                <div class="d-flex">
-                                    <h5 class="m-b15">Resume Headline</h5>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#resumeheadline"
-                                        class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> Edit</a>
-                                </div>
-                                <p class="m-b0">Job board currently living in USA</p>
-                                <!-- Modal -->
-                                <div class="modal fade modal-bx-info editor" id="resumeheadline" tabindex="-1"
-                                    role="dialog" aria-labelledby="ResumeheadlineModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ResumeheadlineModalLongTitle">Resume
-                                                    Headline</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>It is the first thing recruiters notice in your profile. Write
-                                                    concisely what makes you unique and right person for the job you are
-                                                    looking for.</p>
-                                                <form method="post">ctioa
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <textarea class="form-control"
-                                                                    placeholder="Type Description"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="site-button"
-                                                    data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="site-button">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal End -->
+                            <?php if (isset($_GET['error'])) {?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $_GET['error']; ?>
                             </div>
+                            <?php }?>
+                            <?php if (isset($_GET['success'])) {?>
+                            <div class="alert alert-success" role="alert">
+                                <?php echo $_GET['success']; ?>
+                            </div>
+                            <?php }?>
                             <div id="key_skills_bx" class="job-bx bg-white m-b30">
                                 <div class="d-flex">
                                     <h5 class="m-b15">Key Skills</h5>
@@ -582,688 +586,36 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
-                                                <p>It is the first thing recruiters notice in your profile. Write
-                                                    concisely what makes you unique and right person for the job you are
-                                                    looking for.</p>
-                                                <form>
+                                            <form action="jobs-my-resume.php" method="post">
+                                                <div class="modal-body">
+                                                    <p>It is the first thing recruiters notice in your profile. Write
+                                                        concisely what makes you unique and right person for the job you
+                                                        are
+                                                        looking for.</p>
+
                                                     <div class="row">
                                                         <div class="col-lg-12 col-md-12">
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control tags_input"
-                                                                    value="html,css,bootstrap,photoshop" />
+                                                                <input type="text" name="skils"
+                                                                    class="form-control tags_input"
+                                                                    placeholder="html,css,bootstrap,photoshop" />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="site-button"
-                                                    data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="site-button">Save</button>
-                                            </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="site-button"
+                                                        data-dismiss="modal">Cancel</button>
+                                                    <input type="submit" name="skill" value="Save" class="site-button">
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Modal End -->
                             </div>
-                            <div id="employment_bx" class="job-bx bg-white m-b30 ">
-                                <div class="d-flex">
-                                    <h5 class="m-b15">Employment</h5>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#employment"
-                                        class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> Edit</a>
-                                </div>
-                                <h6 class="font-14 m-b0">Junior Software DeveloperEdit</h6>
-                                <p class="m-b0">W3itexperts</p>
-                                <p class="m-b0">Oct 2015 to Present (3 years 4 months)</p>
-                                <p class="m-b0">Available to join in 1 Months</p>
-                                <p class="m-b0">Junior Software Developer</p>
-                                <!-- Modal -->
-                                <div class="modal fade modal-bx-info editor" id="employment" tabindex="-1" role="dialog"
-                                    aria-labelledby="EmploymentModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="EmploymentModalLongTitle">Add Employment
-                                                </h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Your Designation</label>
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Enter Your Designation">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Your Organization</label>
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Enter Your Organization">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Is this your current company?</label>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <div class="custom-control custom-radio">
-                                                                            <input type="radio"
-                                                                                class="custom-control-input"
-                                                                                id="employ_yes" name="example1">
-                                                                            <label class="custom-control-label"
-                                                                                for="employ_yes">Yes</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <div class="custom-control custom-radio">
-                                                                            <input type="radio"
-                                                                                class="custom-control-input"
-                                                                                id="employ_no" name="example1">
-                                                                            <label class="custom-control-label"
-                                                                                for="employ_no">No</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Started Working From</label>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>2018</option>
-                                                                            <option>2020</option>
-                                                                            <option>2016</option>
-                                                                            <option>2015</option>
-                                                                            <option>2014</option>
-                                                                            <option>2013</option>
-                                                                            <option>2012</option>
-                                                                            <option>2011</option>
-                                                                            <option>2010</option>
-                                                                            <option>2009</option>
-                                                                            <option>2008</option>
-                                                                            <option>2007</option>
-                                                                            <option>2006</option>
-                                                                            <option>2005</option>
-                                                                            <option>2004</option>
-                                                                            <option>2003</option>
-                                                                            <option>2002</option>
-                                                                            <option>2001</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>january</option>
-                                                                            <option>february</option>
-                                                                            <option>March</option>
-                                                                            <option>April</option>
-                                                                            <option>May</option>
-                                                                            <option>Jun</option>
-                                                                            <option>July</option>
-                                                                            <option>August</option>
-                                                                            <option>September</option>
-                                                                            <option>October</option>
-                                                                            <option>November</option>
-                                                                            <option>December</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Worked Till</label>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>2018</option>
-                                                                            <option>2020</option>
-                                                                            <option>2016</option>
-                                                                            <option>2015</option>
-                                                                            <option>2014</option>
-                                                                            <option>2013</option>
-                                                                            <option>2012</option>
-                                                                            <option>2011</option>
-                                                                            <option>2010</option>
-                                                                            <option>2009</option>
-                                                                            <option>2008</option>
-                                                                            <option>2007</option>
-                                                                            <option>2006</option>
-                                                                            <option>2005</option>
-                                                                            <option>2004</option>
-                                                                            <option>2003</option>
-                                                                            <option>2002</option>
-                                                                            <option>2001</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>january</option>
-                                                                            <option>february</option>
-                                                                            <option>March</option>
-                                                                            <option>April</option>
-                                                                            <option>May</option>
-                                                                            <option>Jun</option>
-                                                                            <option>July</option>
-                                                                            <option>August</option>
-                                                                            <option>September</option>
-                                                                            <option>October</option>
-                                                                            <option>November</option>
-                                                                            <option>December</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Describe your Job Profile</label>
-                                                                <textarea class="form-control"
-                                                                    placeholder="Type Description"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="site-button"
-                                                    data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="site-button">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal End -->
-                            </div>
-                            <div id="education_bx" class="job-bx bg-white m-b30">
-                                <div class="d-flex">
-                                    <h5 class="m-b15">Education</h5>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#education"
-                                        class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> Edit</a>
-                                </div>
-                                <p>Mention your employment details including your current and previous company work
-                                    experience</p>
-                                <!-- Modal -->
-                                <div class="modal fade modal-bx-info editor" id="education" tabindex="-1" role="dialog"
-                                    aria-labelledby="EducationModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="EducationModalLongTitle">Education</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Education</label>
-                                                                <select>
-                                                                    <option>Doctorate/PhD</option>
-                                                                    <option>Masters/Post-Graduation</option>
-                                                                    <option>Graduation/Diploma</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Course</label>
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Select Course">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>University/Institute</label>
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Select University/Institute">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="site-button"
-                                                    data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="site-button">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal End -->
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <div class="clearfix m-b20">
-                                            <label class="m-b0">London - 12th</label>
-                                            <span class="clearfix font-13">2020</span>
-                                        </div>
-                                        <div class="clearfix m-b20">
-                                            <label class="m-b0">London - 10th</label>
-                                            <span class="clearfix font-13">2015</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="javascript:void(0);" class="clearfix">Add Doctorate/PhD</a>
-                                <a href="javascript:void(0);" class="clearfix">Add Masters/Post-Graduation</a>
-                                <a href="javascript:void(0);" class="clearfix">Add Graduation/Diploma</a>
-                            </div>
-                            <div id="it_skills_bx" class="job-bx table-job-bx bg-white m-b30">
-                                <div class="d-flex">
-                                    <h5 class="m-b15">IT Skills</h5>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#itskills"
-                                        class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> Edit</a>
-                                </div>
-                                <p>Mention your employment details including your current and previous company work
-                                    experience</p>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Skills</th>
-                                            <th>Version</th>
-                                            <th>Last Used</th>
-                                            <th>Experience</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Bootstrap</td>
-                                            <td>3</td>
-                                            <td>2018</td>
-                                            <td>1 Year 5 Months</td>
-                                            <td><a class="m-l15 font-14" data-toggle="modal" data-target="#itskills"
-                                                    href="#"><i class="fa fa-pencil"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bootstrap</td>
-                                            <td>4</td>
-                                            <td>2013</td>
-                                            <td>5 Year 5 Months</td>
-                                            <td><a class="m-l15 font-14" data-toggle="modal" data-target="#itskills"
-                                                    href="#"><i class="fa fa-pencil"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>html</td>
-                                            <td>5</td>
-                                            <td>2016</td>
-                                            <td>2 Year 7 Months</td>
-                                            <td><a class="m-l15 font-14" data-toggle="modal" data-target="#itskills"
-                                                    href="#"><i class="fa fa-pencil"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>css</td>
-                                            <td>3</td>
-                                            <td>2018</td>
-                                            <td>0 Year 5 Months</td>
-                                            <td><a class="m-l15 font-14" data-toggle="modal" data-target="#itskills"
-                                                    href="#"><i class="fa fa-pencil"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>photoshop</td>
-                                            <td>64bit</td>
-                                            <td>2020</td>
-                                            <td>1 Year 0 Months</td>
-                                            <td><a class="m-l15 font-14" data-toggle="modal" data-target="#itskills"
-                                                    href="#"><i class="fa fa-pencil"></i></a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- Modal -->
-                                <div class="modal fade modal-bx-info editor" id="itskills" tabindex="-1" role="dialog"
-                                    aria-labelledby="ItskillsModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ItskillsModalLongTitle">IT Skills</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>IT Skills</label>
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Enter IT Skills">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Version</label>
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Enter Version">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Last Used</label>
-                                                                <select>
-                                                                    <option>2018</option>
-                                                                    <option>2020</option>
-                                                                    <option>2016</option>
-                                                                    <option>2015</option>
-                                                                    <option>2014</option>
-                                                                    <option>2013</option>
-                                                                    <option>2012</option>
-                                                                    <option>2011</option>
-                                                                    <option>2010</option>
-                                                                    <option>2009</option>
-                                                                    <option>2008</option>
-                                                                    <option>2007</option>
-                                                                    <option>2006</option>
-                                                                    <option>2005</option>
-                                                                    <option>2004</option>
-                                                                    <option>2003</option>
-                                                                    <option>2002</option>
-                                                                    <option>2001</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Experience</label>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>2018</option>
-                                                                            <option>2020</option>
-                                                                            <option>2016</option>
-                                                                            <option>2015</option>
-                                                                            <option>2014</option>
-                                                                            <option>2013</option>
-                                                                            <option>2012</option>
-                                                                            <option>2011</option>
-                                                                            <option>2010</option>
-                                                                            <option>2009</option>
-                                                                            <option>2008</option>
-                                                                            <option>2007</option>
-                                                                            <option>2006</option>
-                                                                            <option>2005</option>
-                                                                            <option>2004</option>
-                                                                            <option>2003</option>
-                                                                            <option>2002</option>
-                                                                            <option>2001</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>january</option>
-                                                                            <option>february</option>
-                                                                            <option>March</option>
-                                                                            <option>April</option>
-                                                                            <option>May</option>
-                                                                            <option>Jun</option>
-                                                                            <option>July</option>
-                                                                            <option>August</option>
-                                                                            <option>September</option>
-                                                                            <option>October</option>
-                                                                            <option>November</option>
-                                                                            <option>December</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="site-button"
-                                                    data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="site-button">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal End -->
-                            </div>
-                            <div id="projects_bx" class="job-bx bg-white m-b30">
-                                <div class="d-flex">
-                                    <h5 class="m-b15">Projects</h5>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#projects"
-                                        class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> Edit</a>
-                                </div>
-                                <h6 class="font-14 m-b0">Job BoardEdit</h6>
-                                <p class="m-b0">w3itexpert (Offsite)</p>
-                                <p class="m-b0">Dec 2018 to Present (Full Time)</p>
-                                <p class="m-b0">Job Board Template</p>
-                                <!-- Modal -->
-                                <div class="modal fade modal-bx-info editor" id="projects" tabindex="-1" role="dialog"
-                                    aria-labelledby="ProjectsModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ProjectsModalLongTitle">Add Projects</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Project Title</label>
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Enter Project Title">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Tag this project with your
-                                                                    Employment/Education</label>
-                                                                <select>
-                                                                    <option>Class 12th</option>
-                                                                    <option>Class 10th</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Client</label>
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Enter Client Name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Project Status</label>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <div class="custom-control custom-radio">
-                                                                            <input type="radio"
-                                                                                class="custom-control-input"
-                                                                                id="inprogress" name="example1">
-                                                                            <label class="custom-control-label"
-                                                                                for="inprogress">In Progress</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <div class="custom-control custom-radio">
-                                                                            <input type="radio"
-                                                                                class="custom-control-input"
-                                                                                id="finished" name="example1">
-                                                                            <label class="custom-control-label"
-                                                                                for="finished">Finished</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Started Working From</label>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>2018</option>
-                                                                            <option>2020</option>
-                                                                            <option>2016</option>
-                                                                            <option>2015</option>
-                                                                            <option>2014</option>
-                                                                            <option>2013</option>
-                                                                            <option>2012</option>
-                                                                            <option>2011</option>
-                                                                            <option>2010</option>
-                                                                            <option>2009</option>
-                                                                            <option>2008</option>
-                                                                            <option>2007</option>
-                                                                            <option>2006</option>
-                                                                            <option>2005</option>
-                                                                            <option>2004</option>
-                                                                            <option>2003</option>
-                                                                            <option>2002</option>
-                                                                            <option>2001</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>january</option>
-                                                                            <option>february</option>
-                                                                            <option>March</option>
-                                                                            <option>April</option>
-                                                                            <option>May</option>
-                                                                            <option>Jun</option>
-                                                                            <option>July</option>
-                                                                            <option>August</option>
-                                                                            <option>September</option>
-                                                                            <option>October</option>
-                                                                            <option>November</option>
-                                                                            <option>December</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Worked Till</label>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>2018</option>
-                                                                            <option>2020</option>
-                                                                            <option>2016</option>
-                                                                            <option>2015</option>
-                                                                            <option>2014</option>
-                                                                            <option>2013</option>
-                                                                            <option>2012</option>
-                                                                            <option>2011</option>
-                                                                            <option>2010</option>
-                                                                            <option>2009</option>
-                                                                            <option>2008</option>
-                                                                            <option>2007</option>
-                                                                            <option>2006</option>
-                                                                            <option>2005</option>
-                                                                            <option>2004</option>
-                                                                            <option>2003</option>
-                                                                            <option>2002</option>
-                                                                            <option>2001</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                        <select>
-                                                                            <option>january</option>
-                                                                            <option>february</option>
-                                                                            <option>March</option>
-                                                                            <option>April</option>
-                                                                            <option>May</option>
-                                                                            <option>Jun</option>
-                                                                            <option>July</option>
-                                                                            <option>August</option>
-                                                                            <option>September</option>
-                                                                            <option>October</option>
-                                                                            <option>November</option>
-                                                                            <option>December</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Details of Project</label>
-                                                                <textarea class="form-control"
-                                                                    placeholder="Type Description"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="site-button"
-                                                    data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="site-button">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal End -->
-                            </div>
-                            <div id="profile_summary_bx" class="job-bx bg-white m-b30">
-                                <div class="d-flex">
-                                    <h5 class="m-b15">Profile Summary</h5>
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#profilesummary"
-                                        class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> Edit</a>
-                                </div>
-                                <p class="m-b0">Your Profile Summary should mention the highlights of your career and
-                                    education, what your professional interests are, and what kind of a career you are
-                                    looking for. Write a meaningful summary of more than 50 characters.</p>
-                                <!-- Modal -->
-                                <div class="modal fade modal-bx-info editor" id="profilesummary" tabindex="-1"
-                                    role="dialog" aria-labelledby="ProfilesummaryModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ProfilesummaryModalLongTitle">Profile
-                                                    Summary</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Your Profile Summary should mention the highlights of your career and
-                                                    education, what your professional interests are, and what kind of a
-                                                    career you are looking for. Write a meaningful summary of more than
-                                                    50 characters.</p>
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Details of Project</label>
-                                                                <textarea class="form-control"
-                                                                    placeholder="Type Description"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="site-button"
-                                                    data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="site-button">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal End -->
-                            </div>
+
                             <div id="accomplishments_bx" class="job-bx bg-white m-b30">
                                 <h5 class="m-b10">Accomplishments</h5>
                                 <div class="list-row">
@@ -1290,37 +642,41 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form>
+                                                        <form action="jobs-my-resume.php" method="post">
                                                             <div class="row">
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Social Profile</label>
-                                                                        <input type="email" class="form-control"
+                                                                        <input type="text" name="social_profile_name"
+                                                                            class="form-control"
                                                                             placeholder="Social Profile Name">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>URL</label>
-                                                                        <input type="email" class="form-control"
+                                                                        <input type="text" name="social_url"
+                                                                            class="form-control"
                                                                             placeholder="www.google.com">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Description</label>
-                                                                        <textarea class="form-control"
+                                                                        <textarea name="social_description"
+                                                                            class="form-control"
                                                                             placeholder="Type Description"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="site-button"
                                                             data-dismiss="modal">Cancel</button>
-                                                        <button type="button" class="site-button">Save</button>
+                                                        <input type="submit" value="Save" name="social_profile"
+                                                            class="site-button">
                                                     </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -1348,124 +704,45 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form>
+                                                        <form method="post">
                                                             <div class="row">
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Work Title</label>
-                                                                        <input type="email" class="form-control"
+                                                                        <input type="text" name="work_title"
+                                                                            class="form-control"
                                                                             placeholder="Enter Title">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>URL</label>
-                                                                        <input type="email" class="form-control"
+                                                                        <input type="text" name="work_url"
+                                                                            class="form-control"
                                                                             placeholder="www.google.com">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6 col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Duration From</label>
-                                                                        <div class="row">
-                                                                            <div
-                                                                                class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                                <select>
-                                                                                    <option>2018</option>
-                                                                                    <option>2020</option>
-                                                                                    <option>2016</option>
-                                                                                    <option>2015</option>
-                                                                                    <option>2014</option>
-                                                                                    <option>2013</option>
-                                                                                    <option>2012</option>
-                                                                                    <option>2011</option>
-                                                                                    <option>2010</option>
-                                                                                    <option>2009</option>
-                                                                                    <option>2008</option>
-                                                                                    <option>2007</option>
-                                                                                    <option>2006</option>
-                                                                                    <option>2005</option>
-                                                                                    <option>2004</option>
-                                                                                    <option>2003</option>
-                                                                                    <option>2002</option>
-                                                                                    <option>2001</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                                <select>
-                                                                                    <option>january</option>
-                                                                                    <option>february</option>
-                                                                                    <option>March</option>
-                                                                                    <option>April</option>
-                                                                                    <option>May</option>
-                                                                                    <option>Jun</option>
-                                                                                    <option>July</option>
-                                                                                    <option>August</option>
-                                                                                    <option>September</option>
-                                                                                    <option>October</option>
-                                                                                    <option>November</option>
-                                                                                    <option>December</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
+                                                                        <input type="date" name="start_date">
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-6">
                                                                     <div class="form-group">
-                                                                        <label>Duration To</label>
-                                                                        <div class="row">
-                                                                            <div
-                                                                                class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                                <select>
-                                                                                    <option>2018</option>
-                                                                                    <option>2020</option>
-                                                                                    <option>2016</option>
-                                                                                    <option>2015</option>
-                                                                                    <option>2014</option>
-                                                                                    <option>2013</option>
-                                                                                    <option>2012</option>
-                                                                                    <option>2011</option>
-                                                                                    <option>2010</option>
-                                                                                    <option>2009</option>
-                                                                                    <option>2008</option>
-                                                                                    <option>2007</option>
-                                                                                    <option>2006</option>
-                                                                                    <option>2005</option>
-                                                                                    <option>2004</option>
-                                                                                    <option>2003</option>
-                                                                                    <option>2002</option>
-                                                                                    <option>2001</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                                <select>
-                                                                                    <option>january</option>
-                                                                                    <option>february</option>
-                                                                                    <option>March</option>
-                                                                                    <option>April</option>
-                                                                                    <option>May</option>
-                                                                                    <option>Jun</option>
-                                                                                    <option>July</option>
-                                                                                    <option>August</option>
-                                                                                    <option>September</option>
-                                                                                    <option>October</option>
-                                                                                    <option>November</option>
-                                                                                    <option>December</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
+                                                                        <label>Duration to</label>
+                                                                        <input type="date" name="end_date">
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <div class="custom-control custom-checkbox">
                                                                             <input type="checkbox"
-                                                                                class="custom-control-input" id="check1"
+                                                                                class="custom-control-input"
+                                                                                name="currently_status" id="check1"
                                                                                 name="example1">
                                                                             <label class="custom-control-label"
-                                                                                for="check1">I am currently working on
+                                                                                for="check1">I am currently working
+                                                                                on
                                                                                 this</label>
                                                                         </div>
                                                                     </div>
@@ -1474,17 +751,20 @@
                                                                     <div class="form-group">
                                                                         <label>Description</label>
                                                                         <textarea class="form-control"
+                                                                            name="work_description"
                                                                             placeholder="Type Description"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="site-button"
                                                             data-dismiss="modal">Cancel</button>
-                                                        <button type="button" class="site-button">Save</button>
+                                                        <input type="submit" value="Save" name="work"
+                                                            class="site-button">
                                                     </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -1514,84 +794,53 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form>
+                                                        <form method="post">
+
                                                             <div class="row">
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Title</label>
-                                                                        <input type="email" class="form-control"
+                                                                        <input type="text" name="paper_title"
+                                                                            class="form-control"
                                                                             placeholder="Enter Title">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>URL</label>
-                                                                        <input type="email" class="form-control"
+                                                                        <input type="text" name="paper_url"
+                                                                            class="form-control"
                                                                             placeholder="www.google.com">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Published On</label>
-                                                                        <div class="row">
-                                                                            <div
-                                                                                class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                                <select>
-                                                                                    <option>2018</option>
-                                                                                    <option>2020</option>
-                                                                                    <option>2016</option>
-                                                                                    <option>2015</option>
-                                                                                    <option>2014</option>
-                                                                                    <option>2013</option>
-                                                                                    <option>2012</option>
-                                                                                    <option>2011</option>
-                                                                                    <option>2010</option>
-                                                                                    <option>2009</option>
-                                                                                    <option>2008</option>
-                                                                                    <option>2007</option>
-                                                                                    <option>2006</option>
-                                                                                    <option>2005</option>
-                                                                                    <option>2004</option>
-                                                                                    <option>2003</option>
-                                                                                    <option>2002</option>
-                                                                                    <option>2001</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                                <select>
-                                                                                    <option>january</option>
-                                                                                    <option>february</option>
-                                                                                    <option>March</option>
-                                                                                    <option>April</option>
-                                                                                    <option>May</option>
-                                                                                    <option>Jun</option>
-                                                                                    <option>July</option>
-                                                                                    <option>August</option>
-                                                                                    <option>September</option>
-                                                                                    <option>October</option>
-                                                                                    <option>November</option>
-                                                                                    <option>December</option>
-                                                                                </select>
-                                                                            </div>
+                                                                        <div>
+                                                                            <input type="date"
+                                                                                name="paper_publish_date">
                                                                         </div>
+
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Description</label>
                                                                         <textarea class="form-control"
+                                                                            name="paper_description"
                                                                             placeholder="Type Description"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="site-button"
                                                             data-dismiss="modal">Cancel</button>
-                                                        <button type="button" class="site-button">Save</button>
+                                                        <input type="submit" name="paper" value="Save"
+                                                            class="site-button">
                                                     </div>
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -2504,7 +1753,8 @@
                                     <li><a href="javascript:void(0);" class="m-r10 text-white"><i
                                                 class="fa fa-instagram"></i></a></li>
                                     <li><a href="javascript:void(0);" class="m-r10 text-white"><i
-                                                class="fa fa-twitter"></i></a></li>
+                                                class="fa fa-twitter"></i></a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -2727,9 +1977,20 @@
     <script src="js/jquery.form.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/contact.js"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script src="js/theme.js"></script>
+    <script>
+    $(function() {
+        $('input[name="datetimes_range"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
+                .format('YYYY-MM-DD'));
+        });
+    });
+    </script>
 </body>
 
 <!-- Mirrored from designarc.biz/demos/advotis/index-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 May 2020 08:33:11 GMT -->
