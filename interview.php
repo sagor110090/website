@@ -1,16 +1,12 @@
 <?php
 include "db_conn.php";
 if (isset($_POST['interview'])) {
-    // $skils = $_POST['skils'];
-    // // die($skils);
-
     $name = $_POST['name'];
     $email = $_POST['email'];
     $mobile = $_POST['mobile'];
     $address1 = $_POST['address1'];
     $address2 = $_POST['address2'];
     $landmark = $_POST['landmark'];
-    // die($name);
     $Pincode = $_POST['Pincode'];
     $Applied = $_POST['applied'];
     $company = $_POST['company'];
@@ -21,14 +17,54 @@ if (isset($_POST['interview'])) {
     $interview_by = $_POST['interview_by'];
     $date = $_POST['date'];
     $approved = $_POST['approved'];
-    // $all = var_export($_POST, true);
+
     $sql = "INSERT INTO interviews (`name`, `email`, `mobile`, `address1`, `address2`, `landmark`, `Pincode`, `Applied`, `company`, `company_address1`, `company_address2`, `company_landmark`, `company_pincode`, `interview_by`, `date`, `approved`) VALUES ('$name','$email','$mobile','$address1','$address2','$landmark','$Pincode','$Applied','$company','$company_address1','$company_address2','$company_landmark','$company_pincode','$interview_by', '$date', '$approved');";
     $result = mysqli_query($conn, $sql);
-    // echo $all;
-    // die("sdhsj");
-
 }
+if (isset($_POST['download'])) {
 
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
+    $address1 = $_POST['address1'];
+    $address2 = $_POST['address2'];
+    $landmark = $_POST['landmark'];
+    $Pincode = $_POST['Pincode'];
+    $Applied = $_POST['applied'];
+    $company = $_POST['company'];
+    $company_address1 = $_POST['company_address1'];
+    $company_address2 = $_POST['company_address2'];
+    $company_landmark = $_POST['company_landmark'];
+    $company_pincode = $_POST['company_pincode'];
+    $interview_by = $_POST['interview_by'];
+    $date = $_POST['date'];
+    $approved = $_POST['approved'];
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    $mpdf = new \Mpdf\Mpdf();
+    $mpdf->WriteHTML('<h1>Interview</h1>
+    name : ' . $name . '<br>'
+        . 'email : ' . $email . '<br>'
+        . 'mobile : ' . $mobile . '<br>'
+        . 'address 1 : ' . $address1 . '<br>'
+        . 'address 2 : ' . $address2 . '<br>'
+        . 'landmark : ' . $landmark . '<br>'
+        . 'Pincode : ' . $Pincode . '<br>'
+        . 'Applied : ' . $Applied . '<br>'
+        . 'company : ' . $company . '<br>'
+        . 'company address 1 : ' . $company_address1 . '<br>'
+        . 'company address 2 : ' . $company_address2 . '<br>'
+        . 'company landmark : ' . $company_landmark . '<br>'
+        . 'company pincode : ' . $company_pincode . '<br>'
+        . 'date : ' . $date . '<br>'
+        . 'interview by : ' . $interview_by . '<br>'
+        . 'approved : ' . $approved . '<br>'
+    );
+    $mpdf->Output();
+
+    $sql = "INSERT INTO interviews (`name`, `email`, `mobile`, `address1`, `address2`, `landmark`, `Pincode`, `Applied`, `company`, `company_address1`, `company_address2`, `company_landmark`, `company_pincode`, `interview_by`, `date`, `approved`) VALUES ('$name','$email','$mobile','$address1','$address2','$landmark','$Pincode','$Applied','$company','$company_address1','$company_address2','$company_landmark','$company_pincode','$interview_by', '$date', '$approved');";
+    $result = mysqli_query($conn, $sql);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -328,15 +364,6 @@ if (isset($_POST['interview'])) {
                         </div>
 
 
-                        <!--	<div class="form-group col-md-12">
-								<select class="discuss">
-								<option value disabled selected>Interview By</option>
-									<option value="select"></option>
-            <option value="m"></option>
-            <option value="f"></option>
-            <option value="others"></option>
-								</select>
-							</div> -->
 
 
                         <div class="form-group col-md-3">
@@ -376,8 +403,8 @@ if (isset($_POST['interview'])) {
                             <div class="form-group col-md-1" style="line-height:110px">
                             </div>
                             <div class="form-group col-md-3" style="line-height:110px">
-                                <button type="submit" value="Register" class="btn submit_btn form-control"
-                                    style="#1a2f5f">Download</button>
+                                <input type="submit" value="Download" name="download"
+                                    class="btn submit_btn form-control" style="#1a2f5f">
                             </div>
                         </div>
                     </form>
