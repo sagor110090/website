@@ -1,45 +1,3 @@
-<?php
-include "db_conn.php";
-if (isset($_POST['register'])) {
-    if (isset($_POST['name']) && isset($_POST['uname']) && isset($_POST['password'])) {
-
-        function validate($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $role = $_POST['role'];
-        $uname = validate($_POST['uname']);
-        $pass = validate($_POST['password']);
-        if (empty($uname)) {
-            header("Location: register.php?error=User Name is required");
-            exit();
-        } else if (empty($pass)) {
-            header("Location: register.php?error= Password is required");
-            exit();
-        } else if (empty($uname)) {
-            header("Location: register.php?error=Full Name is required");
-            exit();
-        } else {
-            $sql = "INSERT INTO users (user_name, password, name,email,role) VALUES ('$uname', '$pass', '$name','$email','$role');";
-
-            $result = mysqli_query($conn, $sql);
-            header("Location: index.php?success=thank you for register");
-            exit();
-        }
-
-    } else {
-        header("Location: register.php");
-        exit();
-    }
-}
-?>
-
 <!doctype html>
 <html lang="en">
 
@@ -125,7 +83,13 @@ if (isset($_POST['register'])) {
                             <li><a href="upload.html" target="_blank">Upload Resume</a></li>
                             <li><a href="post-your-job.html" target="_blank">Post Your Job </a></li>
                             <li><a href="contact.html" target="_blank">Contact us</a></li>
-
+                            <!--	<li>
+									<select class="lan">
+										<option value="1">Members  Register</option>
+										<option value="2">Freelance HR Recruiters</option>
+										<option value="3">Colleges or Institutes</option>
+									</select>
+								</li> -->
                         </ul>
                     </div>
                 </div>
@@ -171,6 +135,7 @@ if (isset($_POST['register'])) {
                                     <li><a href="employee-leasing.html" target="_blank">Employee Leasing</a></li>
                                     <li><a href="temporary-staffing.html" target="_blank">Temporary Staffing </a></li>
                                     <li><a href="execute-search.html" target="_blank">Executive Level Search</a></li>
+
 
                                 </ul>
                                 <!--<li class="dropdown submenu mega_menu tab-demo">
@@ -285,6 +250,7 @@ if (isset($_POST['register'])) {
                                     <li><a href="company-post-jobs.html" target="_blank">Post A Job</a></li>
                                     <li><a href="company-manage-job.html" target="_blank">Manage Job</a></li>
 
+
                                 </ul>
                             </li>
                             <li class="dropdown submenu active">
@@ -321,230 +287,3 @@ if (isset($_POST['register'])) {
             </div>
         </div>
     </header>
-    <!--================End Header Area =================-->
-
-    <section class="breadcrumb_area">
-        <div class="breadcrumb_top27">
-            <div class="container">
-                <!--<h2></h2> -->
-            </div>
-        </div>
-        <div class="breadcrumb_bottom">
-            <div class="container">
-                <ul class="nav">
-                    <li><a href="index.html">Home</a></li>
-                    <li class="active"><a href="#">Candidate Register</a></li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section class="get_touch_form_area contact_page p_100">
-        <div class="container">
-            <h2 class="single_title">CANDIDATE REGISTRATION </h2>
-            <div class="row">
-                <div class="col-lg-7">
-                    <form class="row call_back_form" method="post">
-                        <?php if (isset($_GET['error'])) {?>
-                        <p class="text-danger ml-4"><?php echo $_GET['error']; ?></p>
-                        <?php }?>
-                        <div class="form-group col-lg-12">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="FullName">
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <input type="text" class="form-control" id="name" name="uname" placeholder="Username">
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Email address">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Password">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Re-type Your Password">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <select class="discuss" name="role">
-                                <option value disabled selected>Register For</option>
-                                <option value="employer">Employer</option>
-                                <option value="candidate">Candidate</option>
-                                <option value="college-institutes">College/Institutes</option>
-                                <option value="others">Freelance HR Recruiters</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-4" style="line-height:110px">
-                            <input type="submit" value="Register" name="register" class="btn submit_btn form-control"
-                                style="#1a2f5f">
-                        </div>
-                    </form>
-                </div>
-
-                <div class="col-lg-5">
-
-                    <img class="img-fluid" src="img/Candidate1.jpg" alt="" style="height:580px">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--================Footer Area =================-->
-    <footer class="footer_area footer_two">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <aside class="f_widget ab_widget">
-                            <img src="img/SST-Logo.png" alt="" width="120px">
-                            <p>Skills Spout Technology <br /> #82, RD Number 7, <br /> Women's Welfare Housing
-                                Society<br />
-                                Jubilee Hills<br />Hyderabad - Telangana <br />500033</p>
-
-                            <a href="tel:+91 70951-16441">+91 70951-16441</a>
-                        </aside>
-                    </div>
-                    <div class="col-lg-6 col-sm-6">
-                        <aside class="f_widget link_widget">
-                            <div class="f_title">
-                                <h3>Useful Links</h3>
-                                <span></span>
-                            </div>
-                            <ul class="nav flex-column">
-                                <li><a href="about.html">About SST</a></li>
-                                <li><a href="infrastructure.html">Leadership Team</a></li>
-
-                                <li><a href="clients.html">Clients</a></li>
-                                <li><a href="industries.html">Industires</a></li>
-
-                            </ul>
-                            <ul class="nav flex-column">
-                                <li><a href="current-openings.html">Current Openings </a></li>
-                                <li><a href="apply-for-job.html">Apply For Job</a></li>
-
-                                <li><a href="contact.html">Contact Us</a></li>
-
-                            </ul>
-                        </aside>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <aside class="f_widget news_widget">
-                            <div class="f_title">
-                                <h3>Newsletter</h3>
-                                <span></span>
-                            </div>
-                            <p>Get latest updates and offers.</p>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Your email address"
-                                    aria-label="Recipient's username" aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn" type="submit"><i class="fa fa-paper-plane"
-                                            aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                            <ul class="nav">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                        </aside>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer_bottom">
-            <div class="container">
-                <div class="justify-content-between d-flex">
-                    <div class="left">
-                        <p>© DESIGNED BY GROWTH TECH INNOVATIONS.<script>
-                            document.write(new Date().getFullYear());
-                            </script> ALL RIGHTS RESERVED. </p>
-                    </div>
-                    <div class="right">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!--================End Footer Area =================-->
-
-    <!--================Search Box Area =================-->
-    <div class="search_area zoom-anim-dialog mfp-hide" id="test-search">
-        <div class="search_box_inner">
-            <h3>Search</h3>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Enter search keywords">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><i class="icon icon-Search"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <!--================End Search Box Area =================-->
-
-    <!--================Contact Success and Error message Area =================-->
-    <div id="success" class="modal modal-message fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    <h2>Thank you</h2>
-                    <p>Your message is successfully sent...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modals error -->
-
-    <div id="error" class="modal modal-message fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    <h2>Sorry !</h2>
-                    <p> Something went wrong </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--================End Contact Success and Error message Area =================-->
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Rev slider js -->
-    <script src="vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
-    <script src="vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
-    <script src="vendors/revolution/js/extensions/revolution.extension.actions.min.js"></script>
-    <script src="vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
-    <script src="vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-    <script src="vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-    <script src="vendors/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-    <!-- Extra Plugin js -->
-    <script src="vendors/nice-selector/js/jquery.nice-select.min.js"></script>
-    <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="vendors/popup/jquery.magnific-popup.min.js"></script>
-    <script src="vendors/nice-selector/js/jquery.nice-select.min.js"></script>
-    <script src="vendors/counterup/jquery.waypoints.min.js"></script>
-    <script src="vendors/counterup/jquery.counterup.min.js"></script>
-    <!-- contact js -->
-    <script src="js/jquery.form.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/contact.js"></script>
-
-    <script src="js/theme.js"></script>
-</body>
-
-<!-- Mirrored from designarc.biz/demos/advotis/index-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 May 2020 08:33:11 GMT -->
-
-</html>
